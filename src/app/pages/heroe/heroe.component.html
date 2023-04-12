@@ -1,0 +1,55 @@
+<div class="container">
+    <div [hidden]="enviado">
+        <h1>Heroes</h1>
+        <form (ngSubmit)="onSumit()" #heroeForm="ngForm">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" required [(ngModel)]="heroe.nombre" 
+                name="Nombre" #nombre="ngModel" />
+            <div [hidden]="nombre.valid || nombre.pristine" class="alert alert-danger">
+                El campo nombre es obligatorio
+            </div>
+            </div>
+
+            <div class="form-group">
+                <label for="identidad">Identidad:</label>
+                <input type="text" class="form-control" id="identidad" required [(ngModel)]="heroe.identidad" 
+                name="Identidad" #identidad="ngModel" />
+            </div>
+
+            <div class="form-group">
+                <label for="poder">Poder</label>
+                <select class="form-control" id="poder" required [(ngModel)]="heroe.poder" 
+                name="poder" #poder="ngModel">
+                    <option *ngFor="let poder of poderes" [value]="poder">{{ poder }}</option>
+                </select>
+            <div [hidden]="poder.valid || poder.pristine" class="alert alert-danger">
+                El campo poder es obligatorio
+            </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" [disabled]="!heroeForm.form.valid">
+                Enviar
+            </button>
+            <button type="button" class="btn btn-default" (click)="nuevoHeroe();heroeForm.reset()">Limpiar</button>
+        </form>
+    </div>
+
+    <div [hidden]="!enviado">
+        <h2>Enviaste la siguiente información</h2>
+        <div class="row">
+            <div class="col-xs-3"><strong>Nombre:</strong></div>
+            <div class="col-xs-9">{{ heroe.nombre }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3"><strong>Identidad Secreta:</strong></div>
+            <div class="col-xs-9">{{ heroe.identidad }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3"><strong>Poder: </strong></div>
+            <div class="col-xs-9">{{ heroe.poder }}</div>
+        </div>
+        <br />
+        <button type="button" class="btn btn-primary" (click)="enviado=false">Regresar</button>
+    </div>
+</div>
